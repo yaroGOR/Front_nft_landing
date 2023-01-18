@@ -17,6 +17,7 @@ const Section = styled.section`
   width: 100vw;
   background-color: ${(props) => props.theme.body};
   position: relative;
+  overflow: hidden;
 `;
 
 
@@ -38,8 +39,15 @@ transition: all 0.3s ease;
     transform: translateY(-2rem) scale(1.2);
   }
 }
+
+@media (max-width: 64em) {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+align-items:center;}
 `
 const ImageContainer = styled.div`
+
   width: 25rem;
   margin: 0 1rem;
   padding: 1rem;
@@ -47,8 +55,17 @@ const ImageContainer = styled.div`
   border-radius: 20px;
   border: 1px solid ${(props) => props.theme.text};
   cursor: pointer;
+@media (max-width: 64rem) {
+  width: 80%;
+  margin: 0 0.45rem;
+
+}
+@media (max-width: 48rem) {
+  width: 75%;
+}
 
   img {
+    
     width: 100%;
     height: auto;
     transition: all 0.3s ease;
@@ -68,6 +85,10 @@ const Title = styled.h1`
   margin: 1rem auto;
   border-bottom: 2px solid ${(props) => props.theme.text};
   width: fit-content;
+
+  @media (max-width: 49em) {
+    font-size: ${(props) => props.theme.fontxl};
+}
 `;
 const Container = styled.div`
 width:75%;
@@ -76,6 +97,10 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 flex-wrap: wrap;
+
+
+
+
 
 `
 

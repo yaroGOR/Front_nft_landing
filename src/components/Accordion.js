@@ -12,7 +12,12 @@ const Container = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.carouselColor};
 
   margin: 3rem 0;
+
+  @media (max-width: 48em) {
+    margin: 2rem 0;
+  }
 `;
+
 const Reveal = styled.div`
   display: ${(props) => (props.clicked ? "blcok" : "none")};
   margin-top: 1rem;
@@ -44,6 +49,9 @@ const Indicator = styled.span`
         height: auto;
         fill: ${props=> props.theme.carouselColor};
     }
+    @media (max-width: 48em) {
+      font-size: ${(props) => props.theme.fontxl};
+  }
 `
 
 

@@ -15,9 +15,17 @@ const VectorContainer = styled.div`
   overflow: hidden;
 
   svg {
+    display: inline-block;
     width: 100%;
     height: 100%;
   }
+
+
+@media (max-width: 48em){
+  left: 1rem;
+  
+}
+
 `;
 
 const Bounce = keyframes`
@@ -35,11 +43,16 @@ const Ball = styled.div`
   border-radius: 50%;
   background-color: ${(props) => props.theme.text};
   animation: ${Bounce} 0.5s linear infinite alternate;
+
+@media (max-width: 48em){
+  left: 1rem;
+  
+}
 `;
 
 const DrawSvg = () => {
   const ref = useRef(null);
-  const ballRef = useRef(null)
+  const ballRef = useRef(null);
 
   gsap.registerPlugin(ScrollTrigger);
   useLayoutEffect(() => {
@@ -68,28 +81,26 @@ const DrawSvg = () => {
           svg.style.strokeDashoffset = length - draw;
         },
 
-
         onToggle: (self) => {
           if (self.isActive) {
             //console.log("Scroll is active");
             ballRef.current.style.display = "none";
           } else {
-          //  console.log("is not");
+            //  console.log("is not");
             ballRef.current.style.display = "inline-block";
-
           }
         },
       },
     });
 
     return () => {
-        if (t1) t1.kill()
+      if (t1) t1.kill();
     };
   }, []);
 
   return (
     <>
-      <Ball ref = {ballRef}/>
+      <Ball ref={ballRef} />
       <VectorContainer ref={ref}>
         <Vector />
       </VectorContainer>

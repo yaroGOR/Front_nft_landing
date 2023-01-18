@@ -1,81 +1,188 @@
-import React from 'react'
-import styled from 'styled-components'
-import Button from './Button'
-import Logo from './Logo'
+import React from "react";
+import styled from "styled-components";
+import Button from "./Button";
+import Logo from "./Logo";
+import { useState } from "react";
 
 const Section = styled.section`
-width: 100vw;
-background-color: ${props => (props.theme.body)};
-`
+  width: 100vw;
+  background-color: ${(props) => props.theme.body};
+`;
 
 const NavBar = styled.nav`
-display:flex;
-justify-content: space-between;
-align-items: center;
-padding-top:1rem;
-width: 85%;
-height: ${props => props.theme.navHeight};
-margin: 0 auto;
-`
-const Menu = styled.ul`
-display: flex;
-justify-content: space-between;
-align-items: center;
-list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  width: 85%;
+  height: ${(props) => props.theme.navHeight};
+  margin: 0 auto;
 
-`
+  .mobile {
+    display: none;
+  }
+    @media (max-width: 64em) {
+        .desktop {
+        display: none;
+        }
+        .mobile {
+            display: inline-block;
+        }
+    
+
+  }
+`;
+const Menu = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+
+  
+
+  @media (max-width: 64em) {
+    /*1024px*/
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    top:${props=> props.theme.navHeight};
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: ${props => `calc(100vh - ${props.theme.navHeight})`};
+    z-index: 30;
+    background-color: ${props=> `rgba(${props.theme.bodyRgba}, 0.85)`};
+    backdrop-filter: blur(4px);
+    display: ${props => props.click ? "flex" : "none"};
+  } 
+`;
 
 const MenuItem = styled.li`
-margin:0 0.1rem;
-color: ${props => props.theme.text};
-cursor: pointer;
+  margin: 0 0.5rem;
+  color: ${(props) => props.theme.text};
+  z-index: 40;
+  cursor: pointer;
 
-&::after{
-    content: '';
+  &::after {
+    content: "";
     display: block;
     width: 0%;
     height: 2px;
-    
-    background: ${props => props.theme.text} ;
-    transition: width 0.3s ease;
-}
-&:hover::after{
-    width: 100%;
-}
-`
 
+    background: ${(props) => props.theme.text};
+    transition: width 0.3s ease;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+@media (max-width: 64em) {
+    margin: 1rem 0;
+
+    &::after{
+        display: none;
+    }
+}
+ 
+`;
+
+const HamburgerMenu = styled.span`
+  width: 1.5rem;
+  height: 2px;
+  background: ${(props) => props.theme.text};
+
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: ${(props) =>
+    props.click
+      ? "translateX(-50%) rotate(90deg)"
+      : "translateX(-50%) rotate(0)"};
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  @media (max-width: 64em) {
+    /*1024px*/
+    display: flex;
+  }
+
+  &::after,
+  &::before {
+    content: " ";
+    width: ${(props) => (props.click ? "1rem" : "1.5rem")};
+
+    height: 2px;
+
+    right: ${(props) => (props.click ? "-2px" : "0")};
+    background: ${(props) => props.theme.text};
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+
+  &::after {
+    top: ${(props) => (props.click ? "0.3rem" : "0.5rem")};
+    transform: ${(props) => (props.click ? "rotate(-40deg)" : " rotate(0)")};
+  }
+  &::before {
+    bottom: ${(props) => (props.click ? "0.3rem" : "0.5rem")};
+    transform: ${(props) => (props.click ? " rotate(40deg)" : " rotate(0)")};
+  }
+`;
 
 const Navigation = () => {
-    const scrollTo = (id) => {
-        let element = document.getElementById(id);
+  const [click, setClick] = useState(false);
 
-        element.scrollIntoView({
-            behavior:'smooth',
-            block:'start',
-            inline:'nearest',
+  const scrollTo = (id) => {
+    let element = document.getElementById(id);
 
-        })
-    }
-
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+    setClick(!click)
+  };
 
   return (
-<Section id='navigation'>
-    <NavBar>
-        <Logo/>
-            <Menu>
-                <MenuItem  onClick = {()=> scrollTo('home')}>Home</MenuItem>
-                <MenuItem  onClick = {()=> scrollTo('about')}>About</MenuItem>
-                <MenuItem  onClick = {()=> scrollTo('roadmap')}>Roadmap</MenuItem>
-                <MenuItem  onClick = {()=> scrollTo('showcase')}>Showcase</MenuItem>
-                <MenuItem  onClick = {()=> scrollTo('team')}>Team</MenuItem>
-                <MenuItem  onClick = {()=> scrollTo('faq')}>Faq</MenuItem>
+    <Section id="navigation">
+      <NavBar>
+      <Logo />
 
-            </Menu>
+        <HamburgerMenu
+          click={click}
+          onClick={() => {
+            setClick(!click);
+          }}
+        >
+          &nbsp;
+        </HamburgerMenu>
 
-<Button text={"Connect Wallet"} href='https://www.google.com'/>
+        <Menu click={click}>
+          <MenuItem onClick={() => scrollTo("home")}>Home</MenuItem>
+          <MenuItem onClick={() => scrollTo("about")}>About</MenuItem>
+          <MenuItem onClick={() => scrollTo("roadmap")}>Roadmap</MenuItem>
+          <MenuItem onClick={() => scrollTo("showcase")}>Showcase</MenuItem>
+          <MenuItem onClick={() => scrollTo("team")}>Team</MenuItem>
+          <MenuItem onClick={() => scrollTo("faq")}>Faq</MenuItem>
 
-    </NavBar>
-</Section> )
-}
+          <div className="mobile">
+          <Button text={"Connect Wallet"} href="https://www.google.com" />
 
-export default Navigation
+          </div>
+
+        </Menu>
+        <div className="desktop">
+
+        <Button text={"Connect Wallet"} href="https://www.google.com" />
+        </div>
+      </NavBar>
+    </Section>
+  );
+};
+
+export default Navigation;

@@ -14,7 +14,6 @@ import img10 from "../../assets/Nfts/bighead-10.svg";
 
 import ETH from "../../assets/icons8-ethereum-48.png";
 
-
 const Section = styled.section`
   min-height: 100vh;
   width: 100vw;
@@ -24,12 +23,20 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 
-  &>*:first-child{
+  & > *:first-child {
     animation-duration: 20s;
+
+    @media (max-width: 30em) {
+      animation-duration: 15s;
+    }
   }
-  &>*:last-child{
+  & > *:last-child {
     animation-duration: 15s;
+    @media (max-width: 30em) {
+      animation-duration: 10s;
+    }
   }
 `;
 
@@ -69,16 +76,26 @@ const Details = styled.div`
     font-size: ${(props) => props.theme.fontmd};
     color: ${(props) => props.theme.body};
     font-weight: 600;
+
+    @media (max-width: 30em){
+
+      font-size: ${(props) => props.theme.fontsm};
+    }
   }
 `;
 const ImgContainer = styled.div`
   width: 15rem;
   margin: 0 1rem;
   background-color: ${(props) => props.theme.body};
-background-color:gray;
+  background-color: gray;
   border-radius: 20px;
   cursor: pointer;
-
+  @media (max-width: 48em) {
+    width: 12rem;
+  }
+  @media (max-width: 30em) {
+    width: 10rem;
+  }
   img {
     width: 100%;
     height: auto;
@@ -104,7 +121,11 @@ const NftItem = ({ img, number, price = 0, passRef }) => {
   };
 
   return (
-    <ImgContainer onMouseOver={(e) => pause(e)} onMouseOut={(e) => play(e)} id='showcase'>
+    <ImgContainer
+      onMouseOver={(e) => pause(e)}
+      onMouseOut={(e) => play(e)}
+      id="showcase"
+    >
       <img src={img} alt="The weirdos" />
       <Details>
         <div>

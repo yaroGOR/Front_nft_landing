@@ -4,6 +4,7 @@ import '@fontsource/sora'
 
 const GlobalStyles = createGlobalStyle`
 
+
 *, *::before, *::after{
     margin: 0;
     padding: 0;

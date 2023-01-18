@@ -12,6 +12,10 @@ const CoverVideo = () => {
     height: auto;
 
   }
+
+  @media (max-width: 64em) {
+    min-width: 40vh;
+  }
   `
   return (
     <VideoContainer>

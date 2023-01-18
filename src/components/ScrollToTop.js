@@ -16,7 +16,7 @@ font-size: ${props=>props.theme.fontxl};
 position: fixed;
 right: 1rem;
 bottom: 1rem;
-
+z-index: 60;
 cursor: pointer;
 
 display: none;
@@ -51,8 +51,6 @@ const ScrollToTop = () => {
         })
     }
     useLayoutEffect(() => {
-      console.log(y)
-
       if(y>200) {
         ref.current.style.display = "flex"
       }
